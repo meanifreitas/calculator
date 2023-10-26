@@ -26,16 +26,20 @@ const App = () => {
     }
 
     let res = arr[0];
+    let neg;
 
     for (let i = 0; i < arr.length; i++) {
-      if (Number(arr[i])) {
-        if (arr[i-1] == '+') res += arr[i];
+      if (i == 0 && arr[i] == '-') {
+        neg = true;
+      } else if (Number(arr[i])) {
+        if (neg) {
+          res = 0 - arr[i];
+          neg = false;
+        } else if (arr[i-1] == '+') res += arr[i];
         else if (arr[i-1] == '-') res -= arr[i];
         else if (arr[i-1] == '*') res *= arr[i];
         else if (arr[i-1] == '/') res /= arr[i];
         else if (arr[i-1] == '%') res = (res * arr[i]) * 0.01;
-      } else {//começa com numero negativo
-
       } 
     }
 
