@@ -31,7 +31,10 @@ const App = () => {
     for (let i = 0; i < arr.length; i++) {
       if (i == 0 && arr[i] == '-') {
         neg = true;
-      } else if (Number(arr[i])) {
+      } else if (arr[i] == '.') {
+        arr[i] = `${arr[i-1]}.${arr[i+1]}`
+      } 
+      if (Number(arr[i])) {
         if (neg) {
           res = 0 - arr[i];
           neg = false;
@@ -39,11 +42,10 @@ const App = () => {
         else if (arr[i-1] == '-') res -= arr[i];
         else if (arr[i-1] == '*') res *= arr[i];
         else if (arr[i-1] == '/') res /= arr[i];
-        else if (arr[i-1] == '%') res = (res * arr[i]) * 0.01;
       } 
     }
 
-    console.log(res)
+    setCurrentNumber(String(res));
   }
   return (
     <Container>
@@ -52,31 +54,30 @@ const App = () => {
         <Row>
           <Button label="*" onClick={() => handleAddChar('*')}/>
           <Button label="/" onClick={() => handleAddChar('/')}/>
-          <Button label="%" onClick={() => handleAddChar('%')}/>
-          <Button label="C" onClick={handleClear}/>
+          <Button label="-" onClick={() => handleAddChar('-')}/>
+          <Button label="+" onClick={() => handleAddChar('+')}/>
         </Row>
         <Row>
           <Button label="7" onClick={() => handleAddChar('7')}/>
           <Button label="8" onClick={() => handleAddChar('8')}/>
           <Button label="9" onClick={() => handleAddChar('9')}/>
-          <Button label="-" onClick={() => handleAddChar('-')}/>
+          <Button label="C" onClick={handleClear}/>
         </Row>
         <Row>
           <Button label="4" onClick={() => handleAddChar('4')}/>
           <Button label="5" onClick={() => handleAddChar('5')}/>
           <Button label="6" onClick={() => handleAddChar('6')}/>
-          <Button label="+" onClick={() => handleAddChar('+')}/>
+          <Button label="=" onClick={() => handleOperation(currentNumber)}/>
         </Row>
         <Row>
           <Button label="1" onClick={() => handleAddChar('1')}/>
           <Button label="2" onClick={() => handleAddChar('2')}/>
           <Button label="3" onClick={() => handleAddChar('3')}/>
-          <Button label="=" onClick={() => handleOperation(currentNumber)}/>
+          <Button label="." onClick={() => handleAddChar('.')}/>
         </Row>
         <Row>
           <Button label="|"/>
           <Button label="0" onClick={() => handleAddChar('0')}/>
-          <Button label="." onClick={() => handleAddChar('.')}/>
           <Button label="|"/>
         </Row>
       </Content>
