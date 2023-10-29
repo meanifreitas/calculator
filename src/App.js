@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 const App = () => {
   const [currentNumber, setCurrentNumber] = useState('0');
-  const [firstNumber, setFisrtNumber] = useState('0');
 
   const handleAddChar = (number) => {
     setCurrentNumber(prev => `${prev === '0' ? '' : prev}${number}`)
